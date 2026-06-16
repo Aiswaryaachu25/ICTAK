@@ -1,0 +1,345 @@
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+data=pd.read_csv('/content/churn-data-v2.csv')
+data.head()
+
+data.info()
+[ ]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 14999 entries, 0 to 14998
+Data columns (total 10 columns):
+ #   Column                Non-Null Count  Dtype  
+---  ------                --------------  -----  
+ 0   satisfaction          14990 non-null  float64
+ 1   evaluation            14936 non-null  float64
+ 2   number_of_projects    14955 non-null  object 
+ 3   average_montly_hours  14973 non-null  float64
+ 4   time_spend_company    14999 non-null  object 
+ 5   work_accident         14999 non-null  object 
+ 6   churn                 14999 non-null  object 
+ 7   promotion             14999 non-null  object 
+ 8   department            14958 non-null  object 
+ 9   salary                14999 non-null  object 
+dtypes: float64(3), object(7)
+memory usage: 1.1+ MB
+
+
+
+[ ]//////handling missing values
+
+
+data.isna()
+data.isna().sum()
+
+[ ]
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+[ ]
+data=pd.read_csv('/content/churn-data-v2.csv')
+
+[ ]
+data.head()
+
+
+[ ]
+data.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 14999 entries, 0 to 14998
+Data columns (total 10 columns):
+ #   Column                Non-Null Count  Dtype  
+---  ------                --------------  -----  
+ 0   satisfaction          14990 non-null  float64
+ 1   evaluation            14936 non-null  float64
+ 2   number_of_projects    14955 non-null  object 
+ 3   average_montly_hours  14973 non-null  float64
+ 4   time_spend_company    14999 non-null  object 
+ 5   work_accident         14999 non-null  object 
+ 6   churn                 14999 non-null  object 
+ 7   promotion             14999 non-null  object 
+ 8   department            14958 non-null  object 
+ 9   salary                14999 non-null  object 
+dtypes: float64(3), object(7)
+memory usage: 1.1+ MB
+
+[ ]
+
+Start coding or generate with AI.
+handling missing values
+
+[ ]
+data.isna()
+
+
+[ ]
+data.isna().sum()
+
+we have missing values in numerical columns satisfaction,evaluation and avg monthly hrs.we can use mean or median to fill the missing values ot these columns based on the distrubution of data.lotting histogram to check the data distribution.
+Start coding or generate with AI.
+handling missing values
+
+
+#plotting histogram of satisfaction
+
+plt.hist(data['satisfaction'],color = 'yellow',rwidth = 0.9)
+plt.title('histogram of satisfaction')
+plt.xlabel('satisfaction score')
+plt.ylabel('frequency')
+plt.show()
+
+
+[ ]
+#plotting histogram of average_montly_hours
+
+plt.hist(data['average_montly_hours'],color = 'red',rwidth = 0.9)
+plt.title('histogram of average_montly_hours')
+plt.xlabel('average_montly_hours score')
+plt.ylabel('frequency')
+plt.show()
+
+
+[ ]
+#plotting histogram of evaluation
+
+plt.hist(data['evaluation'],color = 'plum',rwidth = 0.9)
+plt.title('histogram of evaluation')
+plt.xlabel('evaluation score')
+plt.ylabel('frequency')
+plt.show()
+
+satisfaction and evaluation are skewed and average monthly hrs is normally distributed , filling missing values in satisfaction and evaluation with median and avg monthly hr with mean
+
+
+[ ]
+data['satisfaction']= data['satisfaction'].fillna(data['satisfaction'].median())
+
+[ ]
+data['evaluation']= data['evaluation'].fillna(data['evaluation'].median())
+
+[ ]
+data['average_montly_hours']= data['average_montly_hours'].fillna(data['average_montly_hours'].mean())
+
+[ ]
+data.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 14999 entries, 0 to 14998
+Data columns (total 10 columns):
+ #   Column                Non-Null Count  Dtype  
+---  ------                --------------  -----  
+ 0   satisfaction          14999 non-null  float64
+ 1   evaluation            14999 non-null  float64
+ 2   number_of_projects    14955 non-null  object 
+ 3   average_montly_hours  14999 non-null  float64
+ 4   time_spend_company    14999 non-null  object 
+ 5   work_accident         14999 non-null  object 
+ 6   churn                 14999 non-null  object 
+ 7   promotion             14999 non-null  object 
+ 8   department            14958 non-null  object 
+ 9   salary                14999 non-null  object 
+dtypes: float64(3), object(7)
+memory usage: 1.1+ MB
+using mode to fill the missing values of categorical columns
+
+
+[ ]
+data['number_of_projects'].mode()
+
+
+[ ]
+data['number_of_projects'].mode()[0]
+
+[ number_of_projects
+0	four
+
+dtype: object
+]
+data['number_of_projects']= data['number_of_projects'].fillna(data['number_of_projects'].mode()[0])
+
+[ ]
+data.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 14999 entries, 0 to 14998
+Data columns (total 10 columns):
+ #   Column                Non-Null Count  Dtype  
+---  ------                --------------  -----  
+ 0   satisfaction          14999 non-null  float64
+ 1   evaluation            14999 non-null  float64
+ 2   number_of_projects    14999 non-null  object 
+ 3   average_montly_hours  14999 non-null  float64
+ 4   time_spend_company    14999 non-null  object 
+ 5   work_accident         14999 non-null  object 
+ 6   churn                 14999 non-null  object 
+ 7   promotion             14999 non-null  object 
+ 8   department            14958 non-null  object 
+ 9   salary                14999 non-null  object 
+dtypes: float64(3), object(7)
+memory usage: 1.1+ MB
+
+[ ]
+data['department']= data['department'].fillna(data['department'].mode()[0])
+
+[ ]
+data.info()
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 14999 entries, 0 to 14998
+Data columns (total 10 columns):
+ #   Column                Non-Null Count  Dtype  
+---  ------                --------------  -----  
+ 0   satisfaction          14999 non-null  float64
+ 1   evaluation            14999 non-null  float64
+ 2   number_of_projects    14999 non-null  object 
+ 3   average_montly_hours  14999 non-null  float64
+ 4   time_spend_company    14999 non-null  object 
+ 5   work_accident         14999 non-null  object 
+ 6   churn                 14999 non-null  object 
+ 7   promotion             14999 non-null  object 
+ 8   department            14999 non-null  object 
+ 9   salary                14999 non-null  object 
+dtypes: float64(3), object(7)
+memory usage: 1.1+ MB
+
+[ ]
+data.describe()
+[ 
+satisfaction	evaluation	average_montly_hours
+count	14999.000000	14999.000000	14999.000000
+mean	0.612834	716.101740	201.050424
+std	0.248631	171.169111	49.943099
+min	0.090000	360.000000	96.000000
+25%	0.440000	560.000000	156.000000
+50%	0.640000	720.000000	200.000000
+75%	0.820000	870.000000	245.000000
+max	1.000000	1000.000000	310.000000
+]
+sns.boxplot(data)
+
+
+[ ]
+plt.boxplot(data['satisfaction'])
+plt.show()
+
+///////////////////encoding
+
+
+[ ]
+data.select_dtypes(include=['object'])
+[	number_of_projects	time_spend_company	work_accident	churn	promotion	department	salary
+0	two	3+	no	yes	no	sales	low
+1	five	6+	no	yes	no	sales	medium
+2	seven	4+	no	yes	no	sales	medium
+3	five	5+	no	yes	no	sales	low
+4	two	3+	no	yes	no	sales	low
+...	...	...	...	...	...	...	...
+14994	two	3+	no	yes	no	support	low
+14995	two	3+	no	yes	no	support	low
+14996	two	3+	no	yes	no	support	low
+14997	six	4+	no	yes	no	support	low
+14998	two	3+	no	yes	no	support	low
+14999 rows × 7 columns
+ ]
+data['number_of_projects'].unique()
+array(['two', 'five', 'seven', 'six', 'four', 'three'], dtype=object)
+
+[ ]
+num_projects = {'two':2,'three':3,'four':4,'five':5,'six':6,'seven':7}
+data['number_of_projects']=data['number_of_projects'].map(num_projects)
+
+[ ]
+data.select_dtypes(include=['object'])
+[ 	time_spend_company	work_accident	churn	promotion	department	salary
+0	3+	no	yes	no	sales	low
+1	6+	no	yes	no	sales	medium
+2	4+	no	yes	no	sales	medium
+3	5+	no	yes	no	sales	low
+4	3+	no	yes	no	sales	low
+...	...	...	...	...	...	...
+14994	3+	no	yes	no	support	low
+14995	3+	no	yes	no	support	low
+14996	3+	no	yes	no	support	low
+14997	4+	no	yes	no	support	low
+14998	3+	no	yes	no	support	low
+14999 rows × 6 columns
+]
+data.head()
+[ 	satisfaction	evaluation	number_of_projects	average_montly_hours	time_spend_company	work_accident	churn	promotion	department	salary
+0	0.38	530.0	2	157.0	3+	no	yes	no	sales	low
+1	0.80	860.0	5	262.0	6+	no	yes	no	sales	medium
+2	0.11	880.0	7	272.0	4+	no	yes	no	sales	medium
+3	0.72	870.0	5	223.0	5+	no	yes	no	sales	low
+4	0.37	520.0	2	159.0	3+	no	yes	no	sales	low
+
+]
+data['time_spend_company'].unique()
+array(['3+', '6+', '4+', '5+', '2+', '8+', '10+', '7+'], dtype=object)
+
+[ ]
+data['time_spend_company']=data['time_spend_company'].str.strip('+')
+
+[ ]
+data.head()
+
+[ satisfaction	evaluation	number_of_projects	average_montly_hours	time_spend_company	work_accident	churn	promotion	department	salary
+0	0.38	530.0	2	157.0	3	no	yes	no	sales	low
+1	0.80	860.0	5	262.0	6	no	yes	no	sales	medium
+2	0.11	880.0	7	272.0	4	no	yes	no	sales	medium
+3	0.72	870.0	5	223.0	5	no	yes	no	sales	low
+4	0.37	520.0	2	159.0	3	no	yes	no	sales	low
+]
+data.dtypes
+
+
+[ 
+0
+satisfaction	float64
+evaluation	float64
+number_of_projects	int64
+average_montly_hours	float64
+time_spend_company	object
+work_accident	object
+churn	object
+promotion	object
+department	object
+salary	object
+
+dtype: object
+]
+data['time_spend_company']=data['time_spend_company'].astype('int')
+
+[ ]
+
+data.dtypes
+
+[	0
+satisfaction	float64
+evaluation	float64
+number_of_projects	int64
+average_montly_hours	float64
+time_spend_company	int64
+work_accident	object
+churn	object
+promotion	object
+department	object
+salary	object
+
+dtype: object ]
+from sklearn.preprocessing import LabelEncoder
+
+le = LabelEncoder()
+data['churn']= le.fit_transform(data['churn'])
+
+[ ]
+data.head()
+
+
+satisfaction	evaluation	number_of_projects	average_montly_hours	time_spend_company	work_accident	churn	promotion	department	salary
+0	0.38	530.0	2	157.0	3	no	1	no	sales	low
+1	0.80	860.0	5	262.0	6	no	1	no	sales	medium
+2	0.11	880.0	7	272.0	4	no	1	no	sales	medium
+3	0.72	870.0	5	223.0	5	no	1	no	sales	low
+4	0.37	520.0	2	159.0	3	no	1	no	sales	low
