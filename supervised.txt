@@ -1,0 +1,47 @@
+Files
+..
+Drop files to upload them to session storage.
+Disk
+87.38 GB available
+feature scaling
+technique to standardize independent features present in data in a fixed range
+2 imp methods
+standard scaling generall y we scale only numeric columns -min max scaling
+SUPERVISED LEARNING
+REGRESSION -continuous assesment -eqn of a stright line is used
+CLASSIFICATION -Eg : salary--low,high,medium
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+insurance_data = pd.read_csv('/content/insurance.csv')
+insurance_data.head()
+
+[
+
+age	sex	bmi	children	smoker	region	charges
+0	19	female	27.900	0	yes	southwest	16884.92400
+1	18	male	33.770	1	no	southeast	1725.55230
+2	28	male	33.000	3	no	southeast	4449.46200
+3	33	male	22.705	0	no	northwest	21984.47061
+4	32	male	28.880	0	no	northwest	3866.85520
+
+
+]
+
+insurance_data.head()
+
+[
+
+	age	sex	bmi	children	smoker	region	charges
+0	19	female	27.900	0	yes	southwest	16884.92400
+1	18	male	33.770	1	no	southeast	1725.55230
+2	28	male	33.000	3	no	southeast	4449.46200
+3	33	male	22.705	0	no	northwest	21984.47061
+4	32	male	28.880	0	no	northwest	3866.85520
+
+
+]
